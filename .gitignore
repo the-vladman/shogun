@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # C extensions
 *.so
@@ -8,14 +9,18 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+bin/
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
 .eggs/
+include/
 lib/
 lib64/
+local/
+man/
 parts/
 sdist/
 var/
@@ -55,3 +60,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Emacs
+*~
+
+# PyCharm
+.idea/

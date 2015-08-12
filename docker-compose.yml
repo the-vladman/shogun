@@ -1,0 +1,8 @@
+app:
+    build: .
+    ports:
+    - "8000:80"
+    environment:
+    - MODE=dev
+    volumes:
+    - .:/root/api:ro
