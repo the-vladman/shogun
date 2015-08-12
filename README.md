@@ -1,4 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/mxabierto/shogun.png?label=ready&title=Ready)](https://waffle.io/mxabierto/shogun)
+[![Build Status](https://travis-ci.org/mxabierto/shogun.svg)](https://travis-ci.org/mxabierto/shogun)
+[![Coverage Status](https://coveralls.io/repos/mxabierto/shogun/badge.svg?branch=master&service=github)](https://coveralls.io/github/mxabierto/shogun?branch=master)
 # shogun
 
 [![Join the chat at https://gitter.im/mxabierto/shogun](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mxabierto/shogun?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
