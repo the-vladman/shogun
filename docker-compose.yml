@@ -5,4 +5,4 @@ app:
     environment:
     - MODE=dev
     volumes:
-    - .:/root/api:ro
+    - .:/root/api:rw
