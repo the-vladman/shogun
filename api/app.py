@@ -8,4 +8,4 @@ app.config.from_object('config')
 api = Api(app)
 
 api.add_resource(Ping, '/v1/ping')
-api.add_resource(FindDatasets, '/v1/finddataset/<string:query>')
+api.add_resource(FindDatasets, '/v1/finddataset')

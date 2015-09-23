@@ -5,4 +5,4 @@ if os.environ.get('MODE') == 'dev':
 
 bind = '0.0.0.0:80'
 errorlog = 'gunicorn_error.log'
-loglevel = 'error'
+loglevel = 'debug'
