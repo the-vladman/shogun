@@ -10,7 +10,7 @@ argparse==1.2.1
 billiard==3.3.0.20
 celery==3.1.18
 ckanapi==3.5
--e git+https://github.com/mxabierto/ckanops.git@43a6e056aad2d52c0ac36832f8491349fed4f0f5#egg=ckanops-origin_split-modules
+-e git+https://github.com/mxabierto/ckanops.git#egg=ckanops
 gunicorn==19.3.0
 itsdangerous==0.24
 kombu==3.0.26
