@@ -4,5 +4,7 @@ app:
     - "8000:80"
     environment:
     - MODE=dev
+    - CKAN_HOST=your_url
+    - CKAN_API_TOKEN=your_token
     volumes:
-    - .:/root/api:ro
+    - .:/root/api:rw
