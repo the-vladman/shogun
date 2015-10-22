@@ -1,4 +1,6 @@
 import os
+import json
+import urllib2
 from urlparse import urlparse
 from flask import jsonify
 from flask_restful import Resource, reqparse
@@ -18,8 +20,12 @@ class Harvest(Resource):
         arg_url = parser.parse_args()
         org_url = urlparse(arg_url['url'])
         org_name = org_url.path.split("/")[1]
+        adela_org = 'http://adela.datos.gob.mx/api/v1/organizations/' + org_name
+        opener = urllib2.build_opener()
+        f = opener.open(adela_org)
+        j = json.load(f)
         try:
-            remote.action.organization_create(name=org_name)
+            remote.action.organization_create(name=org_name, title=j['title'], description=j['description'])
         except ckanapi.ValidationError:
             pass
         catalog = dcat_to_utf8_dict(arg_url['url'])
