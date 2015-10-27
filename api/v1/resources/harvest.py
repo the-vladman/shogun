@@ -9,6 +9,7 @@ from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
+CATALOG = os.getenv('CATALOG_HOST')
 
 remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
 
@@ -20,9 +21,9 @@ class Harvest(Resource):
         arg_url = parser.parse_args()
         org_url = urlparse(arg_url['url'])
         org_name = org_url.path.split("/")[1]
-        adela_org = 'http://adela.datos.gob.mx/api/v1/organizations/' + org_name
+        catalog_org = CATALOG + org_name
         opener = urllib2.build_opener()
-        f = opener.open(adela_org)
+        f = opener.open(catalog_org)
         j = json.load(f)
         try:
             remote.action.organization_create(name=org_name, title=j['title'], description=j['description'])

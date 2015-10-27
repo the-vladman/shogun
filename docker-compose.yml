@@ -6,5 +6,6 @@ app:
     - MODE=dev
     - CKAN_HOST=your_url
     - CKAN_API_TOKEN=your_token
+    - CATALOG_HOST=catalog_url
     volumes:
     - .:/root/api:rw
