@@ -15,6 +15,6 @@ api.add_resource(FindDatasets, '/v1/finddataset')
 api.add_resource(CreateOrganization, '/v1/createorg')
 api.add_resource(Harvest, '/v1/harvest')
 
-handler = logging.FileHandler(filename='app.log', mode='w')
+handler = logging.StreamHandler()
 handler.setLevel(logging.INFO)
 app.logger.addHandler(handler)
