@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask_restful import Resource, reqparse
 
 
@@ -12,9 +13,9 @@ class Organization(Resource):
         parser.add_argument('description', type=str)
         query = parser.parse_args()
         return {'organization': {
-                'name'          : query['name'],
-                'title'         : query['title'],
-                'description'   : query['description']
+                u'name'          : unicode(query['name']),
+                u'title'         : unicode(query['title']),
+                u'description'   : unicode(query['description'])
             }}
 
 
