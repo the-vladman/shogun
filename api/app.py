@@ -15,7 +15,7 @@ api.add_resource(Ping, '/v1/ping')
 api.add_resource(FindDatasets, '/v1/finddataset')
 api.add_resource(CreateOrganization, '/v1/createorg')
 api.add_resource(Organization,
-    '/v1/organization/<string:organization_id>')
+    '/v1/organization/<string:name>')
 api.add_resource(Harvest, '/v1/harvest')
 
 handler = logging.StreamHandler()
