@@ -3,7 +3,8 @@ from celery import Celery
 import ckanapi
 from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
 
-celeryapp = Celery('tasks', backend='redis://localhost:6379', broker='redis://localhost:6379')
+celeryapp = Celery('tasks')
+celeryapp.config_from_object('celeryconfig')
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
