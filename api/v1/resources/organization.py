@@ -8,14 +8,14 @@ class Organization(Resource):
     # index.html#ckan.logic.action.update.organization_update
     def put(self, name):
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument('name', type=str)
-        parser.add_argument('title', type=str)
-        parser.add_argument('description', type=str)
+        parser.add_argument('name')
+        parser.add_argument('title')
+        parser.add_argument('description')
         query = parser.parse_args()
         return {'organization': {
-                u'name'          : unicode(query['name']),
-                u'title'         : unicode(query['title']),
-                u'description'   : unicode(query['description'])
+                'name'          : query['name'],
+                'title'         : query['title'],
+                'description'   : query['description']
             }}
 
 
