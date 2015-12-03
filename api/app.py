@@ -19,6 +19,17 @@ from users import User
 
 auth = HTTPBasicAuth()
 
+class Token(Resource):
+    def __init__(self):
+        super(Token, self).__init__()
+
+    def get(self):
+        passwd=app.config['PASSWORD']
+        username=app.config['USER']
+        user = User(username,app.config)
+        token = user.generate_auth_token()
+        return {'token': token.decode('ascii')}
+
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -32,6 +43,9 @@ def verify_password(username_or_token, password):
     app.logger.debug(password)
     return True
 
+api = Api(app=app)
+
+api.add_resource(Token, '/token')
 
 api = Api(app=app,decorators=[auth.login_required])
 api.add_resource(Ping, '/v1/ping')
