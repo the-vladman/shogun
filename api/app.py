@@ -14,60 +14,10 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 app = Flask(__name__)
 app.config.from_object('config.TestConfig')
 db = SQLAlchemy(app)
-db.create_all()
+from users import User
+
+
 auth = HTTPBasicAuth()
-
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(32), index=True)
-    password_hash = db.Column(db.String(64))
-
-    def __init__(self,username):
-        self.username = username
-
-    def __repr__(self):
-        return '<User %r>' % self.title
-
-    def hash_password(self, password):
-        self.password_hash = pwd_context.encrypt(password)
-
-    def verify_password(self, password):
-        return pwd_context.verify(password, self.password_hash)
-
-    def generate_auth_token(self):
-        s = Serializer(app.config['SECRET_KEY'])
-        return s.dumps({'id': self.id})
-
-    @staticmethod
-    def verify_auth_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
-        try:
-            data = s.loads(token)
-        except SignatureExpired:
-            return None
-        except BadSignature:
-            return None
-        user = User.query.get(data['id'])
-        return user
-
-
-passwd=app.config['PASSWORD']
-username=app.config['USER']
-
-user = User(username=username)
-user.hash_password(passwd)
-db.session.add(user)
-
-
-class Token(Resource):
-    def __init__(self):
-        super(Token, self).__init__()
-
-    def get(self):
-        g.user = user
-        token = g.user.generate_auth_token()
-        return {'token': token.decode('ascii')}
 
 
 @auth.verify_password
@@ -78,21 +28,18 @@ def verify_password(username_or_token, password):
         if not user or not user.verify_password(password):
             return False
     g.user = user
+    app.logger.debug(username_or_token)
+    app.logger.debug(password)
     return True
-
-api = Api(app=app)
-api.add_resource(Token, '/token')
 
 
 api = Api(app=app,decorators=[auth.login_required])
-
-
 api.add_resource(Ping, '/v1/ping')
-#api.add_resource(FindDatasets, '/v1/finddataset')
-#api.add_resource(CreateOrganization, '/v1/createorg')
-#api.add_resource(Harvest, '/v1/harvest')
+api.add_resource(FindDatasets, '/v1/finddataset')
+api.add_resource(CreateOrganization, '/v1/createorg')
+api.add_resource(Harvest, '/v1/harvest')
 
 
 handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
