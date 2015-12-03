@@ -6,7 +6,7 @@ class BaseConfig(object):
 
 
 class TestConfig(BaseConfig):
-    DEBUG = False
+    DEBUG = True
     TESTING = True
     SECRET_KEY = "garlic"
     USER = "dog"
