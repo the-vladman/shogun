@@ -1,11 +1,13 @@
-import os
 import json
 import urllib2
 from urlparse import urlparse
+
+import ckanapi
+import os
+from api.auth.auth import auth
+from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
 from flask import jsonify
 from flask_restful import Resource, reqparse
-import ckanapi
-from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
@@ -15,6 +17,7 @@ remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
 
 
 class Harvest(Resource):
+    decorators=[auth.login_required]
     def post(self):
         parser = reqparse.RequestParser(bundle_errors=True)
         parser.add_argument('url', type=str, required=True)

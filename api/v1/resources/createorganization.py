@@ -1,6 +1,7 @@
-import os
-from flask_restful import Resource, reqparse
 import ckanapi
+import os
+from api.auth.auth import auth
+from flask_restful import Resource, reqparse
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
@@ -9,6 +10,7 @@ remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
 
 
 class CreateOrganization(Resource):
+    decorators=[auth.login_required]
     def post(self):
         parser = reqparse.RequestParser(bundle_errors=True)
         parser.add_argument('org_name', type=str, required=True)
