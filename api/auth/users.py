@@ -1,7 +1,9 @@
+from flask.ext.sqlalchemy import SQLAlchemy
 from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
-from api.app import db
+from api.bare_app import app
+db = SQLAlchemy(app)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -28,12 +30,15 @@ class User(db.Model):
 
     @staticmethod
     def verify_auth_token(token):
-        s = Serializer('garlic') #config0['SECRET_KEY']
+        s = Serializer(app.config['SECRET_KEY']) #config0['SECRET_KEY']
         try:
             data = s.loads(token)
         except SignatureExpired:
+            app.logger.warn('Expired Token: ' + token)
             return None
         except BadSignature:
+            app.logger.warn('Unauthorized Token: ' + token)
             return None
         user = User.query.get(data['id'])
+        app.logger.info('User ' +  user.username + ' Authenticated')
         return user
