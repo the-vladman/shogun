@@ -12,9 +12,6 @@ def verify_password(username_or_token, password=None):
         user = User.query.filter_by(username=username_or_token).first()
         if not user or not user.verify_password(password):
             return False
-    else:
-        if password!=user.username:
-            return False
     g.user = user
     app.logger.debug(username_or_token)
     app.logger.debug(user.id)
