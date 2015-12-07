@@ -5,7 +5,8 @@ from urlparse import urlparse
 from flask import jsonify
 from flask_restful import Resource, reqparse
 import ckanapi
-from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
+from tasks import harvesting
+
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
@@ -29,10 +30,5 @@ class Harvest(Resource):
             remote.action.organization_create(name=org_name, title=j['title'], description=j['description'])
         except ckanapi.ValidationError:
             pass
-        catalog = dcat_to_utf8_dict(arg_url['url'])
-        for dcat_dataset in catalog.get('dataset', []):
-            ckan_dataset = converters.dcat_to_ckan(dcat_dataset)
-            ckan_dataset['name'] = munge.munge_title_to_name(ckan_dataset['title'])
-            ckan_dataset['state'] = 'active'
-            new_dataset = upsert_dataset(remote, ckan_dataset)
+        harvesting.delay(arg_url['url'])
         return jsonify({'harvest': 'executed'})
