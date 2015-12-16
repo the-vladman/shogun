@@ -6,7 +6,6 @@ import ckanapi
 from tasks import harvesting
 import os
 from api.auth.auth import auth
-from ckanops import dcat_to_utf8_dict, munge, converters, upsert_dataset
 from flask import jsonify
 from flask_restful import Resource, reqparse
 
