@@ -27,7 +27,10 @@ class Harvest(Resource):
         f = opener.open(catalog_org)
         j = json.load(f)
         try:
-            remote.action.organization_create(name=org_name, title=j['title'], description=j['description'])
+            remote.action.organization_create(name=org_name,
+                                              title=j['title'],
+                                              description=j['description'],
+                                              image_url=j['imageUrl'])
         except ckanapi.ValidationError:
             pass
         harvesting.delay(arg_url['url'])
