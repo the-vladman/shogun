@@ -7,4 +7,4 @@ WORKDIR /root/shogun
 RUN pip install -r requirements.txt
 
 EXPOSE 80
-CMD ["gunicorn", "--config=api/gunicorn.py", "api.app:app"]
+CMD ["/root/shogun/start.sh"]
