@@ -21,7 +21,7 @@ class Harvest(Resource):
         parser.add_argument('url', type=str, required=True)
         arg_url = parser.parse_args()
         org_url = urlparse(arg_url['url'])
-        org_name = org_url.path.split("/")[1]
+        org_name = org_url.path.split("/")[-2]
         catalog_org = CATALOG + org_name
         opener = urllib2.build_opener()
         f = opener.open(catalog_org)
