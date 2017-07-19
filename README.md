@@ -13,3 +13,31 @@ _[mxabierto/ckanops as a service](https://github.com/mxabierto/ckanops)_
 ## More info
 
 For more information on installation, configuration, and usage, visit [the Wiki](https://github.com/mxabierto/shogun/wiki).
+
+
+# NOTA IMPORTANTE
+
+Para poder registrar correctamente el nivel de gobierno se debe utilizar la variable de ambiente *VOCABULARY_GOV_TYPE_ID* en la definicion del deploy de *shogun*.
+
+Para obtener el ID del vocabulario *gov_types* se debe consultar el API en las siguiente rutas dependiendo del ambiente: 
+
+- QA: *http://10.20.55.7/busca/api/3/action/vocabulary_list*
+- QA: *https://datos.gob.mx/busca/api/3/action/vocabulary_list*
+
+De la respuesta se debe extraer el *hash* del key *id* antes del nombre *gov_types*.
+
+Ejemplo de la respuesta:
+```
+  "help": "https://datos.gob.mx/busca/api/3/action/help_show?name=vocabulary_list",
+  "success": true,
+  "result": [
+    {
+      "tags": [
+        ...
+      ],
+      "id": "64fc6523-df3659-434342sd-a9d8-f272c9bd898d34sfd",
+      "name": "gov_types"
+    }
+  ]
+}
+```
