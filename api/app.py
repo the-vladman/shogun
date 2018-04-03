@@ -5,7 +5,7 @@ from api.v1.resources.ping import Ping
 from api.v1.resources.finddatasets import FindDatasets
 from api.v1.resources.createorganization import CreateOrganization
 from api.v1.resources.harvest import Harvest
-from api.v1.resources.updateOrg import UpdateOrg
+from api.v1.resources.update_org import UpdateOrg
 
 app = Flask(__name__)
 app.config.from_object('config')
