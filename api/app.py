@@ -15,7 +15,7 @@ api.add_resource(Ping, '/v1/ping')
 api.add_resource(FindDatasets, '/v1/finddataset')
 api.add_resource(CreateOrganization, '/v1/createorg')
 api.add_resource(Harvest, '/v1/harvest')
-api.add_resource(UpdateOrg, '/v1/update_org')
+api.add_resource(UpdateOrg, '/v1/updateorg')
 
 handler = logging.FileHandler(filename='shogun.log', mode='w')
 handler.setLevel(logging.INFO)
