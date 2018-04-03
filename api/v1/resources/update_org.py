@@ -15,6 +15,7 @@ class UpdateOrg(Resource):
         query = parser.parse_args()
         print query
         data = { 'name': "newname", 'id':query['oldname'] }
+        print data
         try:
             remote.call_action('organization_update', data)
             return {'Organization Updated'}
