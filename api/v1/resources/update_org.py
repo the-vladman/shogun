@@ -10,13 +10,14 @@ remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
 class UpdateOrg(Resource):
     def post(self):
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument('old-org-name', type=str, required=True)
-        parser.add_argument('new-org-name', type=str, required=True)
+        parser.add_argument('oldname', type=str, required=True)
+        parser.add_argument('newname', type=str, required=True)
         query = parser.parse_args()
-        data = { 'name': query['new-org-name'], 'id':query['old-org-name'] }
+        print query
+        data = { 'name': query['newname'], 'id':query['oldname'] }
         try:
             remote.call_action('organization_update', data)
-            return {'Organization Updated': query['new-org-name']}
+            return {'Organization Updated': query['newname']}
         except ckanapi.ValidationError as e:
             if str(e) == "{u'__type': u'Validation Error', u'name': [u'Group name already exists in database']}":
                 return {'Validation Error': 'Organization already exists'}
