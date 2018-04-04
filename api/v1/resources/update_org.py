@@ -1,6 +1,7 @@
 import os
 from flask_restful import Resource, reqparse
 import ckanapi
+from flask import jsonify
 
 HOST = os.getenv('CKAN_HOST')
 TOKEN = os.getenv('CKAN_API_TOKEN')
