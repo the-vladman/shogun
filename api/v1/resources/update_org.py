@@ -16,9 +16,9 @@ class UpdateOrg(Resource):
         data = { 'name': query['newname'], 'id':query['oldname'] }
         try:
             remote.call_action('organization_update', data)
-            return {'Organization Updated': query['newname']}
+            return jsonify({'Organization Updated': query['newname']})
         except ckanapi.ValidationError as e:
             if str(e) == "{u'__type': u'Validation Error', u'name': [u'Group name already exists in database']}":
-                return {'Validation Error': 'Organization already exists'}
+                return jsonify({'Validation Error': 'Organization already exists'})
             else:
-                return {'Error': 'Something went wrong'}
+                return jsonify({'Error': 'Something went wrong'})
