@@ -13,4 +13,5 @@ class UpdateOrg(Resource):
         parser.add_argument('oldname', type=str, location='args')
         parser.add_argument('newname', type=str, location='args')
         query = parser.parse_args()
-        return { query['oldname']: query['newname']}
+        data = { 'name': "newname", 'id':query['oldname'] }
+        return data
