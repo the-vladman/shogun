@@ -1,0 +1,16 @@
+import os
+from flask_restful import Resource, reqparse
+import ckanapi
+
+HOST = os.getenv('CKAN_HOST')
+TOKEN = os.getenv('CKAN_API_TOKEN')
+
+remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
+
+class UpdateOrg(Resource):
+    def get(self):
+        parser = reqparse.RequestParser(bundle_errors=True)
+        parser.add_argument('oldname', type=str)
+        parser.add_argument('newname', type=str)
+        query = parser.parse_args()
+        return { query['oldname']: query['newname']}
