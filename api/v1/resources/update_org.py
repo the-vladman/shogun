@@ -10,7 +10,7 @@ remote = ckanapi.RemoteCKAN(HOST, user_agent='ckanops/1.0', apikey=TOKEN)
 class UpdateOrg(Resource):
     def get(self):
         parser = reqparse.RequestParser(bundle_errors=True)
-        parser.add_argument('oldname', type=str)
-        parser.add_argument('newname', type=str)
+        parser.add_argument('oldname', type=str, location='args')
+        parser.add_argument('newname', type=str, location='args')
         query = parser.parse_args()
         return { query['oldname']: query['newname']}
