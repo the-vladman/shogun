@@ -13,8 +13,9 @@ class UpdateOrg(Resource):
         parser = reqparse.RequestParser(bundle_errors=True)
         parser.add_argument('oldname', type=str, required=True)
         parser.add_argument('newname', type=str, required=True)
+        parser.add_argument('newtitle', type=str, required=True)
         query = parser.parse_args()
-        data = { 'name': query['newname'], 'id':query['oldname'] }
+        data = { 'name': query['newname'], 'id':query['oldname'], 'title': query['newtitle']}
         try:
             remote.call_action('organization_update', data)
             return jsonify({'Organization Updated': query['newname']})
