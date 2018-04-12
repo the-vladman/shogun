@@ -17,8 +17,12 @@ class UpdateOrg(Resource):
         query = parser.parse_args()
         data = { 'name': query['newname'], 'id':query['oldname'], 'title': query['newtitle']}
         try:
-            remote.call_action('organization_update', data)
+            org = remote.call_action('organization_update', data)
+            datasetsToUpdated = org['packages']
+            for d in datasetsToUpdated:
+                remote.action.package_owner_org_update(id= d['id'], organization_id = org['id'])
             return jsonify({'Organization Updated': query['newname']})
+
         except ckanapi.ValidationError as e:
             if str(e) == "{u'__type': u'Validation Error', u'name': [u'Group name already exists in database']}":
                 return jsonify({'Validation Error': 'Organization already exists'})
